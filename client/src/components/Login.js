@@ -1,8 +1,13 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import { Navigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
 
 const Login = () => {
   const [email, setEmail] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
+  
   const videoRef = useRef();
   const canvasRef = useRef();
 
@@ -50,8 +55,13 @@ const Login = () => {
           body: JSON.stringify({ email, faceDescriptor: Array.from(faceDescriptor) }),
         });
 
-        if (response.ok) {
+        if (response.status === 200) {
+          const userInfo = await response.json();
           console.log('Login successful frontend');
+          console.log('User Info:', userInfo);
+          setUserInfo(userInfo)
+
+          setRedirect(true)
           // Handle successful login, e.g., redirect to dashboard
         } else {
           console.error('Login failed');
@@ -66,6 +76,10 @@ const Login = () => {
       // Handle no face detected error
     }
   };
+
+  if(redirect) {
+    return <Navigate to={'/home'} />
+}
 
   return (
     <div>
