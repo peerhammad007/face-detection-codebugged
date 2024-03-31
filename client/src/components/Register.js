@@ -54,32 +54,42 @@ const Register = () => {
   
           if (response.ok) {
             console.log('User registered successfully frontend');
+            
             // Handle successful registration, e.g., redirect to login page
           } else {
             console.error('Error registering user');
-            // Handle registration error
           }
         } catch (err) {
           console.error('Error registering user:', err);
-          // Handle registration error
         }
       } else {
         console.log('No face detected');
-        // Handle no face detected error
       }
     }
 
-  return (
-    <div>
-      <h2>Registration</h2>
-      <input type="text" placeholder="Name" value={username} onChange={e => setUsername(e.target.value)} />
-      <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-      <video ref={videoRef} autoPlay></video>
-      <canvas ref={canvasRef} />
-      <button onClick={startVideo}>Start Camera</button>
-      <button onClick={registerUser}>Register</button>
-    </div>
-  );
+    return (
+      <div className="register-container">
+        <h2>Registration</h2>
+        <input
+          type="text"
+          placeholder="Name"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          className="register-input"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          className="register-input"
+        />
+        <video ref={videoRef} autoPlay className="video-element"></video>
+        <canvas ref={canvasRef} className="canvas-element"></canvas>
+        <button onClick={startVideo} className="start-button">Start Camera</button>
+        <button onClick={registerUser} className="register-button">Register</button>
+      </div>
+    );
 }
 
 export default Register;

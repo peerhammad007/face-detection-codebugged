@@ -1,4 +1,8 @@
 body {
+  background-color: #330055;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23330055' cx='50' cy='0' r='50'/%3E%3Cg fill='%233a015d' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23410165' cx='50' cy='100' r='50'/%3E%3Cg fill='%2348026e' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23500376' cx='50' cy='200' r='50'/%3E%3Cg fill='%2357047e' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%235f0587' cx='50' cy='300' r='50'/%3E%3Cg fill='%2367068f' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%236f0798' cx='50' cy='400' r='50'/%3E%3Cg fill='%237707a0' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%238008a9' cx='50' cy='500' r='50'/%3E%3Cg fill='%238909b1' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%239109ba' cx='50' cy='600' r='50'/%3E%3Cg fill='%239a09c3' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23a309cb' cx='50' cy='700' r='50'/%3E%3Cg fill='%23ad09d4' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b608dc' cx='50' cy='800' r='50'/%3E%3Cg fill='%23c007e5' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c905ee' cx='50' cy='900' r='50'/%3E%3Cg fill='%23d303f6' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23D0F' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+background-attachment: fixed;
+background-size: contain;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -34,20 +38,140 @@ code {
   cursor: pointer;
 }
 
-.uploaded-image {
-  max-width: 100%;
-  max-height: 400px; /* Adjust this value as per your desired maximum height */
-  object-fit: contain; /* This property maintains the aspect ratio */
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
+/* Style for the container holding the webcam and file upload */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+/* Style for the image container */
 .image-container {
+  margin-bottom: 20px;
   position: relative;
 }
 
-.image-container canvas {
+/* Style for the uploaded image */
+.uploaded-image {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+/* Style for the canvas */
+canvas {
   position: absolute;
   top: 0;
   left: 0;
 }
+
+/* Style for the webcam and file upload container */
+.upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Style for the buttons */
+.action-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px; /* Add margin to create space between buttons */
+}
+
+/* Style for the buttons on hover */
+.action-button:hover {
+  background-color: #0056b3;
+}
+
+/* Style for the file upload input */
+input[type="file"] {
+  display: none;
+}
+
+/* Style for the file upload label */
+.file-upload-label {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px; /* Add margin to create space between buttons */
+}
+
+/* Style for the file upload label on hover */
+.file-upload-label:hover {
+  background-color: #0056b3;
+}
+
+
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.login{
+
+}
+
+.login-input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+.video-element {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.canvas-element {
+  display: none; /* Hide the canvas element */
+}
+
+.start-button, .login-button, .register-button {
+  padding: 10px 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.start-button:hover, .login-button:hover, .register-button:hover {
+  background-color: #0056b3;
+}
+
+.register-container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.register-input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+
 
 

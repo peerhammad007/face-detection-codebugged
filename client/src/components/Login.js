@@ -61,19 +61,20 @@ const Login = () => {
           console.log('User Info:', userInfo);
           setUserInfo(userInfo)
 
+          // Stop the webcam
+          const stream = videoRef.current.srcObject;
+          const tracks = stream.getTracks();
+          tracks.forEach(track => track.stop());
+
           setRedirect(true)
-          // Handle successful login, e.g., redirect to dashboard
         } else {
           console.error('Login failed');
-          // Handle login error
         }
       } catch (err) {
         console.error('Error during login:', err);
-        // Handle login error
       }
     } else {
       console.log('No face detected');
-      // Handle no face detected error
     }
   };
 
@@ -81,21 +82,22 @@ const Login = () => {
     return <Navigate to={'/home'} />
 }
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <video ref={videoRef} autoPlay></video>
-      <canvas ref={canvasRef} />
-      <button onClick={startVideo}>Start Camera</button>
-      <button onClick={loginUser}>Login</button>
-    </div>
-  );
+return (
+  <div className="login-container">
+    <h2 className='login'>Login</h2>
+    <input
+      type="email"
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className="login-input"
+    />
+    <video ref={videoRef} autoPlay className="video-element"></video>
+    <canvas ref={canvasRef} className="canvas-element"></canvas>
+    <button onClick={startVideo} className="start-button">Start Camera</button>
+    <button onClick={loginUser} className="login-button">Login</button>
+  </div>
+);
 };
 
 export default Login;
