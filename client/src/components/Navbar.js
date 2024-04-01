@@ -2,12 +2,13 @@ import {useContext, useEffect} from 'react'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
+import BASE_URL from '../config';
 
 const Navbar = () => {
     const {setUserInfo, userInfo} = useContext(UserContext);
     console.log(userInfo)
     useEffect(() => {
-        axios.get('http://localhost:3001/profile', {
+        axios.get(`${BASE_URL}/profile`, {
             // withCredentials: true
         })
         .then(response => {
@@ -20,7 +21,7 @@ const Navbar = () => {
     }, []);
     
     function logout() {
-        axios.post('http://localhost:3001/logout', {}, {
+        axios.post(`${BASE_URL}/logout`, {}, {
             withCredentials: true
         })
         .then(() => {
