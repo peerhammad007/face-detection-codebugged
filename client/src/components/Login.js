@@ -74,7 +74,7 @@ const Login = () => {
         console.error('Error during login:', err);
       }
     } else {
-      console.log('No face detected');
+      console.log('No face detected. Try again.');
     }
   };
 

@@ -28,7 +28,6 @@ const Home = () => {
       .detectAllFaces(img, new faceapi.TinyFaceDetectorOptions())
       .withFaceLandmarks()
       .withFaceExpressions()
-      .withAgeAndGender()
 
     console.log(detections);
 
@@ -48,14 +47,6 @@ const Home = () => {
     faceapi.draw.drawDetections(canvasRef.current, resized);
     faceapi.draw.drawFaceExpressions(canvasRef.current, resized);
     faceapi.draw.drawFaceLandmarks(canvasRef.current, resized);
-
-    resized.forEach((detection) => {
-      const box = detection.detection.box;
-      const drawBox = new faceapi.draw.DrawBox(box, {
-        label: Math.round(detection.age) + " yeard old " + detection.gender,
-      });
-      drawBox.draw(canvasRef)
-    })
 
     }
   };
@@ -91,7 +82,6 @@ const Home = () => {
         faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
         faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
         faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-        faceapi.nets.ageGenderNet.loadFromUri('/models')
       ])
         .then(() => handleImage(imageData))
         .catch((e) => console.log(e));

@@ -46,7 +46,6 @@ app.post('/login', async (req, res) => {
     try {
       const { email, faceDescriptor } = req.body;
   
-      // Find the user by email
       const user = await User.findOne({ email });
   
       if (!user) {
@@ -59,15 +58,9 @@ app.post('/login', async (req, res) => {
   
       if (isMatch) {
         // Successful login
-
-        const token = jwt.sign({ userId: user._id, username: user.username }, SECRET, {});
+      const token = jwt.sign({ userId: user._id, username: user.username }, SECRET, {});
       return res
-      .cookie('token', token, {
-        httpOnly: true, // Prevent client-side script from accessing the cookie
-        secure: process.env.NODE_ENV === 'production', // Only send cookie over HTTPS in production
-        maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
-        sameSite: 'strict', // Protect against CSRF attacks
-      })
+        .cookie('token', token)
         .json({ id: user._id, username: user.username });
       } else {
         // Failed login
@@ -79,27 +72,15 @@ app.post('/login', async (req, res) => {
     }
   });
 
-// PROFILE
+//PROFILE
 app.get('/profile', (req, res) => {
-  // Get the token from the request cookies
-  console.log(req.cookies)
-  const token = req.cookies.token;
-  console.log(token)
-
-  // Verify the token
-  jwt.verify(token, SECRET, (err, decoded) => {
-    if (err) {
-      // If token verification fails, return unauthorized status
-      return res.status(401).json({ error: 'Unauthorized' });
-    } else {
-      // If token is valid, extract user ID and username
-      const { userId, username } = decoded;
-
-      // Return user ID and username as JSON response
-      res.json({ id: userId, username: username });
-    }
-  });
-});
+  console.log(req.cookies);
+  const {token} = req.cookies;
+  jwt.verify(token, SECRET, {}, (err, info) => {
+      if(err) throw err;
+      res.json(info);
+  })
+})
 
 
 //LOGOUT
@@ -107,13 +88,13 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').json('ok');
 })
 
-  function compareFaceDescriptors(descriptor1, descriptor2) {
-    const distance = faceapi.euclideanDistance(descriptor1, descriptor2);
-    const threshold = 0.6; // Adjust this value based on your requirements
-  
-    // If the distance is less than the threshold, the descriptors are considered a match
-    return distance < threshold;
-  }
+function compareFaceDescriptors(descriptor1, descriptor2) {
+  const distance = faceapi.euclideanDistance(descriptor1, descriptor2);
+  const threshold = 0.6;
+
+  // If the distance is less than the threshold, the descriptors are considered a match
+  return distance < threshold;
+}
   
 
 mongoose.connect(MONGO_URL)

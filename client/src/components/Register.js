@@ -70,7 +70,7 @@ const Register = () => {
           console.error('Error registering user:', err);
         }
       } else {
-        console.log('No face detected');
+        console.log('No face detected. Try again.');
       }
     }
 
