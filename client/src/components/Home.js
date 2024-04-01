@@ -8,6 +8,7 @@ const Home = () => {
   const [imgElement, setImgElement] = useState(null);
   const [imageData, setImageData] = useState(null);
   const [webcamActive, setWebcamActive] = useState(false);
+  const [loading, setLoading] = useState(false);
   const webcamRef = useRef(null);
 
   const handleImage = async (imageData) => {
@@ -53,6 +54,7 @@ const Home = () => {
 
 
   const handleFileUpload = (event) => {
+    setLoading(true); // Set loading to true when image upload starts
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
@@ -70,21 +72,26 @@ const Home = () => {
   };
 
   const captureWebcam = () => {
+    setLoading(true)
     const imageSrc = webcamRef.current.getScreenshot();
     setImageData(imageSrc);
     setWebcamActive(false);
   };
 
   useEffect(() => {
-    const loadModels = () => {
-      Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-        faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-        faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-        faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-      ])
-        .then(() => handleImage(imageData))
-        .catch((e) => console.log(e));
+    const loadModels = async () => {
+      try {
+        await Promise.all([
+          faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+          faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+          faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+          faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+        ]);
+        await handleImage(imageData);
+        setLoading(false); // Set loading to false when image processing is completed
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     loadModels();
@@ -116,6 +123,8 @@ const Home = () => {
         </label>
         <input type="file" accept="image/*" id="file-upload" onChange={handleFileUpload} style={{ display: 'none' }} />
         </div>
+        {loading && <div className="loading">Loading...</div>}
+
       </div>
     </div>
   )

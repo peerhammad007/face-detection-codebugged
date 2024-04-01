@@ -6,6 +6,7 @@ import BASE_URL from '../config';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false); // State variable for loading
   const videoRef = useRef();
   const canvasRef = useRef();
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const Register = () => {
   }
 
   const registerUser = async () => {
+    setLoading(true); // Set loading to true when registration starts
     const detections = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceLandmarks()
       .withFaceDescriptor();
@@ -68,9 +70,13 @@ const Register = () => {
           }
         } catch (err) {
           console.error('Error registering user:', err);
+        } finally {
+          setLoading(false); // Set loading to false when registration is completed
         }
       } else {
         console.log('No face detected. Try again.');
+        setLoading(false); // Set loading to false if no face is detected
+
       }
     }
 
@@ -95,6 +101,7 @@ const Register = () => {
         <canvas ref={canvasRef} className="canvas-element"></canvas>
         <button onClick={startVideo} className="start-button">Start Camera</button>
         <button onClick={registerUser} className="register-button">Register</button>
+        {loading && <div className="loading">Loading...</div>}
       </div>
     );
 }
