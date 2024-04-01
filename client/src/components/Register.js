@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
 
 
@@ -7,6 +8,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const videoRef = useRef();
   const canvasRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadModels = async () => {
@@ -53,9 +55,14 @@ const Register = () => {
           });
   
           if (response.ok) {
-            console.log('User registered successfully frontend');
-            
-            // Handle successful registration, e.g., redirect to login page
+            console.log('User registered successfully');
+            // Stop the webcam
+            const stream = videoRef.current.srcObject;
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+            //redirect to login page
+            navigate('/');
+
           } else {
             console.error('Error registering user');
           }

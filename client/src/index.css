@@ -45,7 +45,6 @@ code {
   height: 100vh;
 }
 
-/* Style for the container holding the webcam and file upload */
 .container {
   display: flex;
   justify-content: center;
@@ -54,27 +53,23 @@ code {
   margin-top: 50px;
 }
 
-/* Style for the image container */
 .image-container {
   margin-bottom: 20px;
   position: relative;
 }
 
-/* Style for the uploaded image */
 .uploaded-image {
   max-width: 100%;
   max-height: 400px;
   object-fit: contain;
 }
 
-/* Style for the canvas */
 canvas {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-/* Style for the webcam and file upload container */
 .upload-container {
   display: flex;
   justify-content: center;
@@ -82,7 +77,6 @@ canvas {
   flex-direction: column;
 }
 
-/* Style for the buttons */
 .action-button {
   padding: 10px 20px;
   background-color: #007bff;
@@ -90,10 +84,9 @@ canvas {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 5px; /* Add margin to create space between buttons */
+  margin: 5px; /* margin between buttons */
 }
 
-/* Style for the buttons on hover */
 .action-button:hover {
   background-color: #0056b3;
 }
@@ -111,10 +104,9 @@ input[type="file"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin: 5px; /* Add margin to create space between buttons */
+  margin: 5px; /* margin between buttons */
 }
 
-/* Style for the file upload label on hover */
 .file-upload-label:hover {
   background-color: #0056b3;
 }

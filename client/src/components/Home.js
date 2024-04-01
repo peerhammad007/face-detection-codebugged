@@ -118,14 +118,13 @@ const Home = () => {
           />
         )}
         <button onClick={toggleWebcam} className="action-button">
-  {webcamActive ? 'Capture from Webcam' : 'Activate Webcam'}
-</button>
+          {webcamActive ? 'Capture from Webcam' : 'Activate Webcam'}
+        </button>
 
-<label htmlFor="file-upload" className="action-button">
-  Upload Image
-</label>
-<input type="file" accept="image/*" id="file-upload" onChange={handleFileUpload} style={{ display: 'none' }} />
-
+        <label htmlFor="file-upload" className="action-button">
+          Upload Image
+        </label>
+        <input type="file" accept="image/*" id="file-upload" onChange={handleFileUpload} style={{ display: 'none' }} />
         </div>
       </div>
     </div>
