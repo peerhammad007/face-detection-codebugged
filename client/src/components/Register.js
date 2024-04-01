@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
-
+import BASE_URL from '../config';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -46,7 +46,7 @@ const Register = () => {
         const faceDescriptor = Array.from(detections.descriptor);
         // console.log(faceDescriptor)
         try {
-          const response = await fetch('http://localhost:3001/register', {
+          const response = await fetch(`${BASE_URL}/register`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

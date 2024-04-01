@@ -8,7 +8,7 @@ const Navbar = () => {
     console.log(userInfo)
     useEffect(() => {
         axios.get('http://localhost:3001/profile', {
-            withCredentials: true
+            // withCredentials: true
         })
         .then(response => {
             console.log(response.data);

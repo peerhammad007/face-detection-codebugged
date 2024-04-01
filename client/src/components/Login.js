@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Navigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
+import BASE_URL from '../config';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -47,7 +48,7 @@ const Login = () => {
       const faceDescriptor = Array.from(detections.descriptor);
       // console.log(faceDescriptor)
       try {
-        const response = await fetch('http://localhost:3001/login', {
+        const response = await fetch(`${BASE_URL}/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
