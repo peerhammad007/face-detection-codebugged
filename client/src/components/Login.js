@@ -6,8 +6,8 @@ import BASE_URL from '../config';
 
 const Login = () => {
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false); // State variable for loading
-  const [modelsLoaded, setModelsLoaded] = useState(false); // State variable to track model loading
+  const [loading, setLoading] = useState(false); 
+  const [modelsLoaded, setModelsLoaded] = useState(false); 
   const [redirect, setRedirect] = useState(false);
   const { setUserInfo } = useContext(UserContext);
   
@@ -23,7 +23,7 @@ const Login = () => {
           faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
           faceapi.nets.faceExpressionNet.loadFromUri('/models'),
         ]);
-        setModelsLoaded(true); // Set modelsLoaded to true when all models are loaded
+        setModelsLoaded(true); 
       } catch (error) {
         console.error('Error loading models:', error);
       }
@@ -46,7 +46,7 @@ const Login = () => {
       console.warn('Models are not loaded yet. Please wait.');
       return;
     }
-    setLoading(true); // Set loading to true when registration starts
+    setLoading(true); 
     const detections = await faceapi
       .detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceLandmarks()
@@ -70,7 +70,6 @@ const Login = () => {
           console.log('User Info:', userInfo);
           setUserInfo(userInfo)
 
-          // Stop the webcam
           const stream = videoRef.current.srcObject;
           const tracks = stream.getTracks();
           tracks.forEach(track => track.stop());
@@ -82,11 +81,11 @@ const Login = () => {
       } catch (err) {
         console.error('Error during login:', err);
       } finally {
-        setLoading(false); // Set loading to false when registration is completed
+        setLoading(false); 
       }
     } else {
       console.log('No face detected. Try again.');
-      setLoading(false); // Set loading to false if no face is detected
+      setLoading(false); 
     }
   };
 

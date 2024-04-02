@@ -4,6 +4,7 @@ import Webcam from 'react-webcam';
 
 
 const Home = () => {
+  const imgRef = useRef();
   const canvasRef = useRef();
   const [imgElement, setImgElement] = useState(null);
   const [imageData, setImageData] = useState(null);
@@ -16,7 +17,6 @@ const Home = () => {
       let img;
   
       if (typeof imageData === 'string') {
-        // If imageData is a data URL string (file upload)
         const blobFromDataUrl = await fetch(imageData).then((res) => res.blob());
         img = await faceapi.bufferToImage(blobFromDataUrl);
         setImgElement(img);
@@ -37,12 +37,12 @@ const Home = () => {
     canvasRef.current.appendChild(canvas);
 
     faceapi.matchDimensions(canvasRef.current, {
-      width: 600,
-      height: 400,
+      width: imgRef.current.width,
+      height: imgRef.current.height,
     })
     const resized = faceapi.resizeResults(detections, {
-      width: 600,
-      height: 400,
+      width: imgRef.current.width,
+      height: imgRef.current.height,
     });
 
     faceapi.draw.drawDetections(canvasRef.current, resized);
@@ -54,7 +54,7 @@ const Home = () => {
 
 
   const handleFileUpload = (event) => {
-    setLoading(true); // Set loading to true when image upload starts
+    setLoading(true); 
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
@@ -65,7 +65,7 @@ const Home = () => {
 
   const toggleWebcam = () => {
     if (webcamActive) {
-      captureWebcam(); // Call captureWebcam when toggling off
+      captureWebcam(); 
     } else {
       setWebcamActive(true);
     }
@@ -88,7 +88,7 @@ const Home = () => {
           faceapi.nets.faceExpressionNet.loadFromUri('/models'),
         ]);
         await handleImage(imageData);
-        setLoading(false); // Set loading to false when image processing is completed
+        setLoading(false);
       } catch (e) {
         console.log(e);
       }
@@ -101,7 +101,7 @@ const Home = () => {
     <div className='home'>
       <div className="container">
         <div className="image-container">
-          {imgElement && <img src={imgElement.src} alt="Uploaded" className="uploaded-image" />}
+          {imgElement && <img ref={imgRef} src={imgElement.src} alt="Uploaded" className="uploaded-image" />}
           <canvas ref={canvasRef} />
         </div>
         <div className="upload-container">

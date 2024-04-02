@@ -6,8 +6,8 @@ import BASE_URL from '../config';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false); // State variable for loading
-  const [modelsLoaded, setModelsLoaded] = useState(false); // State variable to track model loading
+  const [loading, setLoading] = useState(false);
+  const [modelsLoaded, setModelsLoaded] = useState(false);
   const videoRef = useRef();
   const canvasRef = useRef();
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Register = () => {
           faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
           faceapi.nets.faceExpressionNet.loadFromUri('/models'),
         ]);
-        setModelsLoaded(true); // Set modelsLoaded to true when all models are loaded
+        setModelsLoaded(true); 
 
       } catch (error) {
         console.error('Error loading models:', error);
@@ -44,7 +44,7 @@ const Register = () => {
       console.warn('Models are not loaded yet. Please wait.');
       return;
     }
-    setLoading(true); // Set loading to true when registration starts
+    setLoading(true); 
     const detections = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions())
       .withFaceLandmarks()
       .withFaceDescriptor();
@@ -63,7 +63,6 @@ const Register = () => {
   
           if (response.ok) {
             console.log('User registered successfully');
-            // Stop the webcam
             const stream = videoRef.current.srcObject;
             const tracks = stream.getTracks();
             tracks.forEach(track => track.stop());
@@ -76,11 +75,11 @@ const Register = () => {
         } catch (err) {
           console.error('Error registering user:', err);
         } finally {
-          setLoading(false); // Set loading to false when registration is completed
+          setLoading(false); 
         }
       } else {
         console.log('No face detected. Try again.');
-        setLoading(false); // Set loading to false if no face is detected
+        setLoading(false); 
 
       }
     }

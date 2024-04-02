@@ -52,7 +52,6 @@ app.post('/login', async (req, res) => {
         return res.status(404).json({ error: 'User not found' });
       }
   
-      // Compare the face descriptor with the stored descriptor
       const storedDescriptor = user.faceDescriptor;
       const isMatch = compareFaceDescriptors(faceDescriptor, storedDescriptor);
   
@@ -92,7 +91,6 @@ function compareFaceDescriptors(descriptor1, descriptor2) {
   const distance = faceapi.euclideanDistance(descriptor1, descriptor2);
   const threshold = 0.6;
 
-  // If the distance is less than the threshold, the descriptors are considered a match
   return distance < threshold;
 }
   
