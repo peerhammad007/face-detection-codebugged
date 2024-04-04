@@ -73,13 +73,20 @@ app.post('/login', async (req, res) => {
 
 //PROFILE
 app.get('/profile', (req, res) => {
-  console.log(req.cookies);
-  const {token} = req.cookies;
+  const { token } = req.cookies;
+  console.log(token);
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
   jwt.verify(token, SECRET, {}, (err, info) => {
-      if(err) throw err;
-      res.json(info);
-  })
-})
+    if (err) {
+      console.error('Error verifying token:', err);
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    res.json(info);
+  });
+});
 
 
 //LOGOUT

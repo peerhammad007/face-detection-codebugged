@@ -43,6 +43,22 @@ code {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative;
+}
+
+.top-header {
+  position: absolute;
+  top: 0;
+}
+
+h1{
+  font-family: Arial, sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: rgb(176, 187, 215);;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .container {

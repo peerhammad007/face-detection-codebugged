@@ -8,10 +8,9 @@ import BASE_URL from '../config';
 const Navbar = () => {
     const {setUserInfo, userInfo} = useContext(UserContext);
     const navigate = useNavigate();
-    console.log(userInfo)
     useEffect(() => {
         axios.get(`${BASE_URL}/profile`, {
-            // withCredentials: true
+            withCredentials: true
         })
         .then(response => {
             console.log(response.data);

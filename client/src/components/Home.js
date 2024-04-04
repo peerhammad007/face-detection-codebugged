@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
+import { UserContext } from '../context/UserContext';
 import * as faceapi from 'face-api.js';
 import Webcam from 'react-webcam';
 
@@ -11,6 +12,8 @@ const Home = () => {
   const [webcamActive, setWebcamActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const webcamRef = useRef(null);
+
+  const {userInfo} = useContext(UserContext);
 
   const handleImage = async (imageData) => {
     if (imageData) {
@@ -99,6 +102,9 @@ const Home = () => {
 
   return (
     <div className='home'>
+      <div className="top-header">
+        <h1>Welcome, {userInfo.username}</h1>
+      </div>
       <div className="container">
         <div className="image-container">
           {imgElement && <img ref={imgRef} src={imgElement.src} alt="Uploaded" className="uploaded-image" />}

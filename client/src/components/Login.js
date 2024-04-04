@@ -61,12 +61,13 @@ const Login = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify({ email, faceDescriptor: Array.from(faceDescriptor) }),
         });
 
         if (response.status === 200) {
           const userInfo = await response.json();
-          console.log('Login successful frontend');
+          console.log('Login successful');
           console.log('User Info:', userInfo);
           setUserInfo(userInfo)
 
