@@ -86,7 +86,7 @@ const Register = () => {
 
     return (
       <div className="register-container">
-        <h2>Registration</h2>
+        <h2 className='register'>Registration</h2>
         <input
           type="text"
           placeholder="Name"
