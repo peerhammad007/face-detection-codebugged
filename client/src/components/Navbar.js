@@ -1,11 +1,13 @@
 import {useContext, useEffect} from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 import BASE_URL from '../config';
 
 const Navbar = () => {
     const {setUserInfo, userInfo} = useContext(UserContext);
+    const navigate = useNavigate();
     console.log(userInfo)
     useEffect(() => {
         axios.get(`${BASE_URL}/profile`, {
@@ -26,6 +28,7 @@ const Navbar = () => {
         })
         .then(() => {
             setUserInfo(null);
+            navigate('/');
         })
         .catch(error => {
             console.error('Error logging out:', error);
